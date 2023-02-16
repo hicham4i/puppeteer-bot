@@ -13,7 +13,7 @@ router.post('/', async (req,res) => {
     // await page.click('#autocomplete-0', {delay: 100});
     await page.keyboard.press('Enter', {delay: 100});
     await page.type('[role="textbox"]', `${prompt} --ref-${ref}`);
-    // await page.keyboard.press('Enter', {delay: 100});
+    await page.keyboard.press('Enter', {delay: 100});
     res.send('Good');
 });
 export default router
