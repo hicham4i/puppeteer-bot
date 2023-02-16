@@ -12,7 +12,7 @@ import userRoutes from './routes/user.routes.js';
 import pictureRoutes from './routes/pictures.routes.js';
 import txt2imgRoutes from './routes/txt2img.routes.js';
 import img2imgRoutes from './routes/img2img.routes.js';
-import { page } from './lib/puppeteer.js';
+// import { page } from './lib/puppeteer.js';
 import { readAndSplit, sleep } from './lib/utils.js';
 
 
@@ -23,14 +23,14 @@ const app = express()
 
 // set the port for devlopment and for heroku
 const PORT = process.env.PORT || 4001;
-await page.goto('https://discord.com/login?redirect_to=%2Fchannels%2F1068479267018641468%2F1068479267480027186', {
-    // waitUntil: "load",
-    // timeout: 0
-    waitUntil: "networkidle0",
-});
-await sleep(4000);
-let filename = `${(new Date().toJSON().slice(0,19).replace(/:/g, '-'))}.png`
-await page.screenshot({path: `./img/screens/${filename}`, captureBeyondViewport: false });
+// await page.goto('https://discord.com/login?redirect_to=%2Fchannels%2F1068479267018641468%2F1068479267480027186', {
+//     // waitUntil: "load",
+//     // timeout: 0
+//     waitUntil: "networkidle0",
+// });
+// await sleep(4000);
+// let filename = `${(new Date().toJSON().slice(0,19).replace(/:/g, '-'))}.png`
+// await page.screenshot({path: `./img/screens/${filename}`, captureBeyondViewport: false });
 
 // Use Express's in-built middleware to parse json and form functionality
 app.use(urlencoded({extended:true}))
