@@ -66,6 +66,7 @@ app.listen(PORT, async () => {
         await page.screenshot({path: `./img/screens/${filename}`, captureBeyondViewport: false });
         if (close) clearInterval(intv)
     }, 10000);
+    await sleep(20000);
     const {
         solved,
         error
