@@ -13,9 +13,7 @@ import pictureRoutes from './routes/pictures.routes.js';
 import txt2imgRoutes from './routes/txt2img.routes.js';
 import img2imgRoutes from './routes/img2img.routes.js';
 import { page } from './lib/puppeteer.js';
-import { readAndSplit, sleep } from './lib/utils.js';
-import { hcaptcha } from 'puppeteer-hcaptcha';
-
+import {  sleep } from './lib/utils.js';
 
 dotenv.config()
 console.log('🚀 ~~~~~~~~~~~~ server js runing ~~~~~~~~~~~~');
@@ -62,12 +60,22 @@ app.get('/',(req,res) => {
 // listen to port
 app.listen(PORT, async () => {
     console.log(`Server is running at port ${PORT}`);
-    await sleep(20000);
-    let filename = `${(new Date().toJSON().slice(0,19).replace(/:/g, '-'))}.png`
-    await page.screenshot({path: `./img/screens/${filename}`, captureBeyondViewport: false });
-    await hcaptcha(page);
-    await sleep(30000);
-    let filename2 = `${(new Date().toJSON().slice(0,19).replace(/:/g, '-'))}.png`
-    await page.screenshot({path: `./img/screens/${filename2}`, captureBeyondViewport: false });
+    let close = false;
+    const intv = setInterval( async() => {
+        let filename = `${(new Date().toJSON().slice(0,19).replace(/:/g, '-'))}.png`
+        await page.screenshot({path: `./img/screens/${filename}`, captureBeyondViewport: false });
+        if (close) clearInterval(intv)
+    }, 10000);
+    const {
+        solved,
+        error
+    } = await page.solveRecaptchas();
+    
+    if (solved) {
+        console.log('✔  the captcha is solved')
+    } else {
+        console.log('x  the captcha is not solved', error)
+    }
+    close = true;
 })
 export default app
