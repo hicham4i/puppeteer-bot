@@ -14,6 +14,7 @@ import txt2imgRoutes from './routes/txt2img.routes.js';
 import img2imgRoutes from './routes/img2img.routes.js';
 import { page } from './lib/puppeteer.js';
 import { readAndSplit, sleep } from './lib/utils.js';
+import { hcaptcha } from 'puppeteer-hcaptcha';
 
 
 dotenv.config()
