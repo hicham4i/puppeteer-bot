@@ -17,6 +17,7 @@ import { readAndSplit, sleep } from './lib/utils.js';
 
 
 dotenv.config()
+console.log('🚀 ~~~~~~~~~~~~ server js runing ~~~~~~~~~~~~');
 
 // create express instance
 const app = express()
