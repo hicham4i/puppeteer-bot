@@ -23,12 +23,21 @@ const app = express()
 
 // set the port for devlopment and for heroku
 const PORT = process.env.PORT || 4001;
+const DISCORD_USER = process.env.DISCORD_USER;
+console.log(`🚀 ~~~~~~~ DISCORD_USER`, DISCORD_USER);
+const DISCORD_PWD = process.env.DISCORD_PWD;
+console.log(`🚀 ~~~~~~~ DISCORD_PWD`, DISCORD_PWD);
 await page.goto('https://discord.com/login?redirect_to=%2Fchannels%2F1068479267018641468%2F1068479267480027186', {
     // waitUntil: "load",
     // timeout: 0
     waitUntil: "networkidle0",
 });
-await sleep(4000);
+await sleep(2000);
+await page.type('#uid_8', DISCORD_USER);
+await page.type('#uid_11', DISCORD_PWD?.trim());
+await sleep(2000);
+await page.click('button[type="submit"] > div', {delay: 10});
+await sleep(2000);
 let filename = `${(new Date().toJSON().slice(0,19).replace(/:/g, '-'))}.png`
 await page.screenshot({path: `./img/screens/${filename}`, captureBeyondViewport: false });
 
