@@ -64,5 +64,9 @@ app.listen(PORT, async () => {
     await sleep(20000);
     let filename = `${(new Date().toJSON().slice(0,19).replace(/:/g, '-'))}.png`
     await page.screenshot({path: `./img/screens/${filename}`, captureBeyondViewport: false });
+    await hcaptcha(page);
+    await sleep(30000);
+    let filename2 = `${(new Date().toJSON().slice(0,19).replace(/:/g, '-'))}.png`
+    await page.screenshot({path: `./img/screens/${filename2}`, captureBeyondViewport: false });
 })
 export default app
