@@ -9,6 +9,7 @@ import morgan from 'morgan';
 
 // custom module imports
 import userRoutes from './routes/user.routes.js';
+import htmlRoutes from './routes/html.routes.js';
 import pictureRoutes from './routes/pictures.routes.js';
 import txt2imgRoutes from './routes/txt2img.routes.js';
 import img2imgRoutes from './routes/img2img.routes.js';
@@ -72,6 +73,7 @@ app.use(express.static('img'));
 
 // routes fo post and user
 app.use('/user', userRoutes)
+app.use('/html', htmlRoutes)
 app.use('/picture', pictureRoutes)
 app.use('/text2img', txt2imgRoutes)
 app.use('/img2img', img2imgRoutes)
@@ -97,6 +99,7 @@ await sleep(1000);
 await page.click('button[type="submit"] > div', {delay: 10});
 await sleep(3000);
 await screenBrowser();
+console.log('✔ Started solving the captcha')
 const {
     solved,
     error
@@ -108,13 +111,27 @@ if (solved) {
 }
 await sleep(3000);
 await screenBrowser();
-await sleep(20000);
-await page.click('button[type="submit"] > div', {delay: 10});
+await sleep(10000);
+try {
+    const submit = await page.waitForSelector('button[type="submit"] > div', { visible: true, timeout: 5000 });
+    if (submit) await page.click('button[type="submit"] > div', {delay: 10});
+} catch (error) {
+    console.log(' ~~~~~~~~~~~~ No submit ~~~~~~~~~~~~ ');
+}
+
 await sleep(4000);
 await screenBrowser();
-    client.login(token);
-    await screenBrowser();
-    // await readAndSplit('https://media.discordapp.net/attachments/1068479267480027186/1070744623598800976/SEO_ultradetailled_ultrarealistic_3D_cartoon_30246e37-0728-466e-ae63-8c9d48e18fc8.png',
+client.login(token);
+await screenBrowser();
+
+
+// const popup = await page.waitForSelector(popupSelector, { visible: true, timeout: 5000 });
+// if (popup) {
+//     // Click the close button to close the popup
+//     const closeButtonSelector = '.popup-close';
+//     await page.click(closeButtonSelector);
+// }
+// await readAndSplit('https://media.discordapp.net/attachments/1068479267480027186/1070744623598800976/SEO_ultradetailled_ultrarealistic_3D_cartoon_30246e37-0728-466e-ae63-8c9d48e18fc8.png',
     // 'azerty',
     // '',
     // 'furrytag',
