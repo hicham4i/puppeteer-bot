@@ -111,7 +111,7 @@ if (solved) {
 }
 await sleep(3000);
 await screenBrowser();
-await sleep(10000);
+await sleep(30000);
 try {
     const submit = await page.waitForSelector('button[type="submit"] > div', { visible: true, timeout: 5000 });
     if (submit) await page.click('button[type="submit"] > div', {delay: 10});
