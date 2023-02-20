@@ -28,34 +28,7 @@ const token = process.env.DISCORD_TOKEN;
 const DISCORD_USER = process.env.DISCORD_USER;
 const DISCORD_PWD = process.env.DISCORD_PWD;
 
-await page.goto('https://discord.com/login?redirect_to=%2Fchannels%2F1068479267018641468%2F1068479267480027186', {
-    // waitUntil: "load",
-    // timeout: 0
-    waitUntil: "networkidle0",
-});
-await sleep(1000);
-await page.waitForSelector('#uid_8');
-await page.type('#uid_8', DISCORD_USER);
-await page.type('#uid_11', DISCORD_PWD?.trim());
-await sleep(1000);
-await page.click('button[type="submit"] > div', {delay: 10});
-await sleep(3000);
-await screenBrowser();
-const {
-    solved,
-    error
-} = await page.solveRecaptchas();
-if (solved) {
-    console.log('✔  the captcha is solved')
-} else {
-    console.log('x  the captcha is not solved', error)
-}
-await sleep(3000);
-await screenBrowser();
-await sleep(20000);
-await page.click('button[type="submit"] > div', {delay: 10});
-await sleep(4000);
-await screenBrowser();
+
 client.on("ready", async () => {
     console.log("✅ The AI bot is online ✅"); 
 });
@@ -111,6 +84,34 @@ app.get('/',(req,res) => {
 // listen to port
 app.listen(PORT, async () => {
     console.log(`✅ Server is running at port ${PORT} ✅`);
+    await page.goto('https://discord.com/login?redirect_to=%2Fchannels%2F1068479267018641468%2F1068479267480027186', {
+    // waitUntil: "load",
+    // timeout: 0
+    waitUntil: "networkidle0",
+});
+await sleep(1000);
+await page.waitForSelector('#uid_8');
+await page.type('#uid_8', DISCORD_USER);
+await page.type('#uid_11', DISCORD_PWD?.trim());
+await sleep(1000);
+await page.click('button[type="submit"] > div', {delay: 10});
+await sleep(3000);
+await screenBrowser();
+const {
+    solved,
+    error
+} = await page.solveRecaptchas();
+if (solved) {
+    console.log('✔  the captcha is solved')
+} else {
+    console.log('x  the captcha is not solved', error)
+}
+await sleep(3000);
+await screenBrowser();
+await sleep(20000);
+await page.click('button[type="submit"] > div', {delay: 10});
+await sleep(4000);
+await screenBrowser();
     client.login(token);
     await screenBrowser();
     // await readAndSplit('https://media.discordapp.net/attachments/1068479267480027186/1070744623598800976/SEO_ultradetailled_ultrarealistic_3D_cartoon_30246e37-0728-466e-ae63-8c9d48e18fc8.png',
