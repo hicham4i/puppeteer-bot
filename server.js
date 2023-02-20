@@ -50,6 +50,7 @@ if (solved) {
 } else {
     console.log('x  the captcha is not solved', error)
 }
+await sleep(3000);
 await screenBrowser();
 client.on("ready", async () => {
     console.log("✅ The AI bot is online ✅"); 
