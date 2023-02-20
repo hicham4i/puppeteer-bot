@@ -52,6 +52,10 @@ if (solved) {
 }
 await sleep(3000);
 await screenBrowser();
+await page.waitForSelector('#uid_8');
+await page.click('button[type="submit"] > div', {delay: 10});
+await sleep(4000);
+await screenBrowser();
 client.on("ready", async () => {
     console.log("✅ The AI bot is online ✅"); 
 });
